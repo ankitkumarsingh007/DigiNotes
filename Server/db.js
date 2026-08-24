@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
-const mongoURI =
-  "mongodb+srv://ankitsingh:huihui123@digi-notes.gkasz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-const connectToMongo = () => {
-  mongoose.connect(mongoURI, () => {
-    console.log("Connected to mongo succesfully");
-  });
+const connectToMongo = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Connected to MongoDB successfully");
+  } catch (error) {
+    console.error("MongoDB connection failed:", error);
+    process.exit(1);
+  }
 };
 
 module.exports = connectToMongo;
