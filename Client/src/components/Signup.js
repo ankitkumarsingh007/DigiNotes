@@ -13,10 +13,15 @@ const Signup = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const { name, email, password, cpassword } = credentials;
+
     if (password !== cpassword) {
       props.showAlert("Passwords are not same", "danger");
-    } else {
+      return;
+    }
+
+    try {
       const response = await fetch(`${BackendURL}/api/auth/creatUser`, {
         method: "POST",
         headers: {
@@ -24,15 +29,33 @@ const Signup = (props) => {
         },
         body: JSON.stringify({ name, email, password }),
       });
+
+      if (response.status === 404) {
+        props.showAlert(
+          "The backend may be waking up after being inactive. The first request can take up to ~50 seconds. Please wait and try again.",
+          "warning",
+          60000,
+        );
+        return;
+      }
+
       const json = await response.json();
+
       if (json.success) {
-        // save the auth token and redirect
         localStorage.setItem("token", json.authtoken);
         history.push("/");
         props.showAlert("Account created successfully", "success");
       } else {
-        props.showAlert("Invalid credentials", "danger");
+        props.showAlert(json.error || "Unable to create account", "danger");
       }
+    } catch (error) {
+      console.error("Signup request failed:", error);
+
+      props.showAlert(
+        "The backend may be waking up after being inactive. The first request can take up to ~50 seconds. Please wait and try again.",
+        "warning",
+        60000,
+      );
     }
   };
 

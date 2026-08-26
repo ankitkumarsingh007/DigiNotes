@@ -9,24 +9,45 @@ const Login = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${BackendURL}/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: credentials.email,
-        password: credentials.password,
-      }),
-    });
-    const json = await response.json();
-    if (json.success) {
-      // save the auth token and redirect
-      localStorage.setItem("token", json.authtoken);
-      history.push("/");
-      props.showAlert("Successfully logged in", "success");
-    } else {
-      props.showAlert("Invalid details", "danger");
+
+    try {
+      const response = await fetch(`${BackendURL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: credentials.email,
+          password: credentials.password,
+        }),
+      });
+
+      if (response.status === 404) {
+        props.showAlert(
+          "The backend may be waking up after being inactive. The first request can take up to ~50 seconds. Please wait and try again.",
+          "warning",
+          60000,
+        );
+        return;
+      }
+
+      const json = await response.json();
+
+      if (json.success) {
+        localStorage.setItem("token", json.authtoken);
+        history.push("/");
+        props.showAlert("Successfully logged in", "success");
+      } else {
+        props.showAlert(json.error || "Invalid details", "danger");
+      }
+    } catch (error) {
+      console.error("Login request failed:", error);
+
+      props.showAlert(
+        "The backend may be waking up after being inactive. The first request can take up to ~50 seconds. Please wait and try again.",
+        "warning",
+        60000,
+      );
     }
   };
 

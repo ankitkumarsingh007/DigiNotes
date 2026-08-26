@@ -13,14 +13,16 @@ import Search from "./components/Search";
 
 function App() {
   const [alert, setAlert] = useState(null);
-  const showAlert = (message, type) => {
+
+  const showAlert = (message, type, duration = 1500) => {
     setAlert({
       msg: message,
       type: type,
     });
+
     setTimeout(() => {
       setAlert(null);
-    }, 1500);
+    }, duration);
   };
 
   return (
@@ -29,24 +31,31 @@ function App() {
         <div style={{ minHeight: "95vh" }}>
           <Router>
             <Navbar />
+
             <Alert alert={alert} />
+
             <div className="container my-2">
               <Switch>
                 <Route exact path="/">
                   <Home showAlert={showAlert} />
                 </Route>
+
                 <Route exact path="/text">
                   <TextForm showAlert={showAlert} />
                 </Route>
+
                 <Route exact path="/Search">
                   <Search />
                 </Route>
+
                 <Route exact path="/about">
                   <About />
                 </Route>
+
                 <Route exact path="/login">
                   <Login showAlert={showAlert} />
                 </Route>
+
                 <Route exact path="/signup">
                   <Signup showAlert={showAlert} />
                 </Route>
@@ -54,11 +63,13 @@ function App() {
             </div>
           </Router>
         </div>
+
         <p className="text-center fw-bold">
           Copyright ©{" "}
           <a
             href="https://www.linkedin.com/in/the-ankit-kumar-singh/"
             target="_blank"
+            rel="noreferrer"
           >
             Ankit Kumar Singh
           </a>
