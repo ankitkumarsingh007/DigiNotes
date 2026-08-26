@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BackendURL } from "../../constant/DigiNotesConst";
 
 const NoteState = (props) => {
-  const host = "${BackendURL}";
+  const host = `${BackendURL}`;
   const notesInitial = [];
   const [notes, setNotes] = useState(notesInitial);
 
