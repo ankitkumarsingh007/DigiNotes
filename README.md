@@ -1,6 +1,8 @@
 # DigiNotes
 
-DigiNotes is a full-stack note-taking application that allows users to create, manage, and organize their notes with secure authentication. Built with the MERN stack (MongoDB, Express, React, Node.js), it provides a seamless experience for managing personal notes in the cloud.
+[![Deployed App](https://img.shields.io/badge/Deployed-Netlify-brightgreen)](https://diginotes007.netlify.app/)
+
+DigiNotes is a full-stack note-taking application that allows users to create, manage, and organize their notes with secure authentication. Built with the MERN stack (MongoDB, Express, React, Node.js), it provides a seamless experience for managing personal notes in the cloud. The application is deployed and available at [https://diginotes007.netlify.app/](https://diginotes007.netlify.app/).
 
 ## Table of Contents
 
@@ -24,7 +26,7 @@ DigiNotes is a web application that enables users to:
 - Organize notes with tags
 - Maintain note privacy with JWT-based authentication
 
-The application follows a client-server architecture with separate frontend and backend directories.
+The application follows a client-server architecture with separate frontend and backend directories. The frontend is deployed on Netlify and accessible at **https://diginotes007.netlify.app/**.
 
 ## Features
 
@@ -180,7 +182,8 @@ DigiNotes/
    Client will run on `http://localhost:3000`
 
 3. **Access the Application**
-   Open your browser and navigate to `http://localhost:3000`
+   - **Live Demo**: [https://diginotes007.netlify.app/](https://diginotes007.netlify.app/)
+   - **Local Development**: Open your browser and navigate to `http://localhost:3000`
 
 4. **Register/Login**
    - Create a new account or login with existing credentials
