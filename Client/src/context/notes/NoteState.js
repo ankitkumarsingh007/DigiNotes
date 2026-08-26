@@ -1,8 +1,9 @@
 import NoteContext from "./noteContext";
 import { useState } from "react";
+import { BackendURL } from "../../constant/DigiNotesConst";
 
 const NoteState = (props) => {
-  const host = "https://digi-notes.herokuapp.com";
+  const host = "${BackendURL}";
   const notesInitial = [];
   const [notes, setNotes] = useState(notesInitial);
 

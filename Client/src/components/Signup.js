@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { BackendURL } from "../constant/DigiNotesConst";
 
 const Signup = (props) => {
   const [credentials, setCredentials] = useState({
@@ -16,16 +17,13 @@ const Signup = (props) => {
     if (password !== cpassword) {
       props.showAlert("Passwords are not same", "danger");
     } else {
-      const response = await fetch(
-        `https://digi-notes.herokuapp.com/api/auth/creatUser`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, password }),
-        }
-      );
+      const response = await fetch(`${BackendURL}/api/auth/creatUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
       const json = await response.json();
       if (json.success) {
         // save the auth token and redirect
